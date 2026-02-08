@@ -1,131 +1,103 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>Swati, Be My Valentine ❤️</title>
 
 <style>
-    body {
-        margin: 0;
-        min-height: 100vh;
-        overflow: hidden;
-        background: linear-gradient(135deg, #ff9a9e, #fad0c4);
-        font-family: 'Segoe UI', sans-serif;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        padding: 10px;
-    }
-
-    .card {
-        background: white;
-        padding: 22px;
-        border-radius: 20px;
-        text-align: center;
-        box-shadow: 0 15px 40px rgba(0,0,0,0.25);
-        width: 100%;
-        max-width: 360px;
-        position: relative;
-    }
-
-    h1 {
-        color: #ff4d6d;
-        font-size: 22px;
-        margin-bottom: 10px;
-    }
-
-    p {
-        color: #555;
-        font-size: 15px;
-        line-height: 1.5;
-    }
-
-    .buttons {
-        position: relative;
-        height: 70px;
-        margin-top: 20px;
-    }
-
-    button {
-        padding: 12px 22px;
-        font-size: 15px;
-        border: none;
-        border-radius: 25px;
-        cursor: pointer;
-        touch-action: manipulation;
-    }
-
-    #yesBtn {
-        background: #ff4d6d;
-        color: white;
-        position: absolute;
-        left: 20%;
-    }
-
-    #noBtn {
-        background: #eee;
-        color: #555;
-        position: absolute;
-        left: 55%;
-    }
-
-    .success {
-        display: none;
-    }
-
-    .heart {
-        font-size: 45px;
-        animation: beat 1s infinite;
-        margin-bottom: 10px;
-    }
-
-    @keyframes beat {
-        0%, 100% { transform: scale(1); }
-        50% { transform: scale(1.3); }
-    }
-
-    .floating-heart {
-        position: absolute;
-        bottom: -20px;
-        font-size: 20px;
-        animation: floatUp 6s linear infinite;
-        opacity: 0.7;
-        pointer-events: none;
-    }
-
-    @keyframes floatUp {
-        0% { transform: translateY(0); opacity: 1; }
-        100% { transform: translateY(-100vh); opacity: 0; }
-    }
-#bgSlideshow {
-    position: fixed;
-    inset: 0;
-    z-index: 0;
-    background-size: cover;
-    background-position: center;
-    opacity: 0;
-    transition: opacity 2s ease-in-out, transform 8s ease;
-    transform: scale(1);
+body{
+    margin:0;
+    min-height:100vh;
+    overflow:hidden;
+    background:linear-gradient(135deg,#ff9a9e,#fad0c4);
+    font-family:'Segoe UI',sans-serif;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    padding:10px;
 }
 
-#bgSlideshow.show {
-    opacity: 0.35; /* soft romantic visibility */
-    transform: scale(1.1);
+/* floating photo snippets */
+#photoSnippets{
+    position:fixed;
+    inset:0;
+    z-index:1;
+    pointer-events:none;
 }
 
-/* Keep cards above background */
-.card {
-    z-index: 2;
+.snippet{
+    position:absolute;
+    width:90px;
+    height:120px;
+    border-radius:14px;
+    background-size:cover;
+    background-position:center;
+    box-shadow:0 12px 28px rgba(0,0,0,.25);
+    opacity:0;
+    animation:floatAround 12s ease-in-out forwards;
 }
 
+@keyframes floatAround{
+    0%   {opacity:0;transform:translate(var(--x1),var(--y1)) scale(.9);}
+    20%  {opacity:.9;}
+    50%  {transform:translate(var(--x2),var(--y2)) scale(1);}
+    80%  {opacity:.9;}
+    100% {opacity:0;transform:translate(var(--x3),var(--y3)) scale(.95);}
+}
+
+@media(max-width:480px){
+    .snippet{width:75px;height:100px;}
+}
+
+.card{
+    background:#fff;
+    padding:22px;
+    border-radius:20px;
+    text-align:center;
+    box-shadow:0 15px 40px rgba(0,0,0,.25);
+    width:100%;
+    max-width:360px;
+    position:relative;
+    z-index:2;
+}
+
+h1{color:#ff4d6d;font-size:22px;margin-bottom:10px;}
+p{color:#555;font-size:15px;line-height:1.5;}
+
+.buttons{position:relative;height:70px;margin-top:20px;}
+
+button{
+    padding:12px 22px;
+    font-size:15px;
+    border:none;
+    border-radius:25px;
+    cursor:pointer;
+}
+
+#yesBtn{background:#ff4d6d;color:#fff;position:absolute;left:20%;}
+#noBtn{background:#eee;color:#555;position:absolute;left:55%;}
+
+.success{display:none;}
+
+.heart{
+    font-size:45px;
+    animation:beat 1s infinite;
+    margin-bottom:10px;
+}
+
+@keyframes beat{
+    0%,100%{transform:scale(1);}
+    50%{transform:scale(1.3);}
+}
 </style>
-
 </head>
 
 <body>
-<div id="bgSlideshow"></div>
-<!-- Background Music -->
+
+<div id="photoSnippets"></div>
+
+<!-- Background music -->
 <audio id="bgMusic" loop>
     <source src="DDLJ.mp3" type="audio/mpeg">
 </audio>
@@ -138,7 +110,6 @@
         Will you be my Valentine today,<br>
         tomorrow, and always? 💕
     </p>
-
     <div class="buttons">
         <button id="yesBtn">Yes 💖</button>
         <button id="noBtn">No 🙈</button>
@@ -156,49 +127,13 @@
 </div>
 
 <script>
-    const noBtn = document.getElementById("noBtn");
-    const yesBtn = document.getElementById("yesBtn");
-    const questionCard = document.getElementById("questionCard");
-    const successCard = document.getElementById("successCard");
-    const music = document.getElementById("bgMusic");
-    const buttons = document.querySelector(".buttons");
+const yesBtn=document.getElementById("yesBtn");
+const noBtn=document.getElementById("noBtn");
+const questionCard=document.getElementById("questionCard");
+const successCard=document.getElementById("successCard");
+const music=document.getElementById("bgMusic");
 
-    function moveButton() {
-        const containerRect = buttons.getBoundingClientRect();
-        const btnRect = noBtn.getBoundingClientRect();
-
-        const maxX = containerRect.width - btnRect.width;
-        const maxY = containerRect.height - btnRect.height;
-
-        const x = Math.random() * maxX;
-        const y = Math.random() * maxY;
-
-        noBtn.style.left = `${x}px`;
-        noBtn.style.top = `${y}px`;
-    }
-
-    noBtn.addEventListener("mouseover", moveButton);
-    noBtn.addEventListener("touchstart", moveButton);
-    yesBtn.addEventListener("click", () => {
-    	music.volume = 0.6;     // optional (0.0 – 1.0)
-    	music.currentTime = 0; // start from beginning
-        music.play();
-        questionCard.style.display = "none";
-        successCard.style.display = "block";
-
-startSlideshow();
-    });
-    setInterval(() => {
-        const heart = document.createElement("div");
-        heart.className = "floating-heart";
-        heart.innerHTML = "❤️";
-        heart.style.left = Math.random() * 100 + "vw";
-        heart.style.fontSize = (Math.random() * 15 + 15) + "px";
-        document.body.appendChild(heart);
-
-        setTimeout(() => heart.remove(), 6000);
-    }, 500);
-const photos = [
+const photos=[
     "photos/1.jpeg",
     "photos/2.jpeg",
     "photos/3.jpeg",
@@ -206,35 +141,56 @@ const photos = [
     "photos/5.jpeg",
     "photos/6.jpeg",
     "photos/7.jpeg",
-    "photos/8.jpeg",
+    "photos/8.jpeg"
 ];
 
-let currentIndex = 0;
-const bg = document.getElementById("bgSlideshow");
+const snippetContainer=document.getElementById("photoSnippets");
 
-// Shuffle photos randomly
-photos.sort(() => Math.random() - 0.5);
-
-function startSlideshow() {
-    bg.style.backgroundImage = `url('${photos[currentIndex]}')`;
-    bg.classList.add("show");
-
-    setInterval(() => {
-        bg.classList.remove("show");
-
-        setTimeout(() => {
-            currentIndex = (currentIndex + 1) % photos.length;
-            bg.style.backgroundImage = `url('${photos[currentIndex]}')`;
-            bg.classList.add("show");
-        }, 2000);
-
-    }, 7000); // change every 7 seconds
+function rand(min,max){
+    return Math.random()*(max-min)+min+"px";
 }
 
-</script>
+function createSnippet(){
+    const s=document.createElement("div");
+    s.className="snippet";
+    s.style.backgroundImage=`url('${photos[Math.floor(Math.random()*photos.length)]}')`;
 
+    s.style.setProperty("--x1",rand(-120,120));
+    s.style.setProperty("--y1",rand(-120,120));
+    s.style.setProperty("--x2",rand(-200,200));
+    s.style.setProperty("--y2",rand(-200,200));
+    s.style.setProperty("--x3",rand(-260,260));
+    s.style.setProperty("--y3",rand(-260,260));
+
+    s.style.left="50%";
+    s.style.top="50%";
+
+    snippetContainer.appendChild(s);
+    setTimeout(()=>s.remove(),12000);
+}
+
+function startSnippets(){
+    createSnippet();
+    setInterval(createSnippet,2200);
+}
+
+noBtn.addEventListener("mouseover",()=>{
+    noBtn.style.left=Math.random()*70+"%";
+    noBtn.style.top=Math.random()*40+"px";
+});
+noBtn.addEventListener("touchstart",()=>{
+    noBtn.style.left=Math.random()*70+"%";
+    noBtn.style.top=Math.random()*40+"px";
+});
+
+yesBtn.addEventListener("click",()=>{
+    music.volume=.6;
+    music.play();
+    questionCard.style.display="none";
+    successCard.style.display="block";
+    startSnippets();
+});
+</script>
 
 </body>
 </html>
-
-
