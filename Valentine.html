@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>For You, Swati ❤️</title>
+
+<style>
+body {
+    margin: 0;
+    height: 100vh;
+    background: linear-gradient(135deg, #1a001a, #3d001f);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Segoe UI', sans-serif;
+    color: white;
+    overflow: hidden;
+}
+
+.container {
+    text-align: center;
+    padding: 25px;
+    max-width: 400px;
+    animation: fadeIn 2s ease;
+}
+
+h1 {
+    font-size: 32px;
+    margin-bottom: 10px;
+}
+
+p {
+    font-size: 17px;
+    line-height: 1.7;
+    opacity: 0.9;
+}
+
+button {
+    margin-top: 25px;
+    padding: 14px 28px;
+    font-size: 16px;
+    border: none;
+    border-radius: 30px;
+    background: #ff4d6d;
+    color: white;
+    cursor: pointer;
+    box-shadow: 0 0 30px rgba(255,77,109,0.7);
+    animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.08); }
+    100% { transform: scale(1); }
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+    <h1>Swati ❤️</h1>
+    <p>
+        From the first smile to every silent understanding,<br>
+        my world slowly became… you.<br><br>
+
+        I have something special to ask you today 💕
+    </p>
+
+    <button onclick="openLove()">Begin Our Love Story 💖</button>
+</div>
+
+<audio autoplay loop>
+    <source src="mohabbatein.mp3" type="audio/mpeg">
+</audio>
+
+<script>
+function openLove() {
+    window.open("HappyValentineWifey.html", "_blank");
+}
+</script>
+
+</body>
+</html>
